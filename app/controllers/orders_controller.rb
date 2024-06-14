@@ -21,7 +21,9 @@ class OrdersController < ApplicationController
     #   end
     #binding.irb
     #@order.with_lock do 
-    @order.save!
+    unless @order.save
+      raise ActiveRecord::Rollback
+    end
     @order.update_total_quantity
     # update_total_quantityメソッドは、注文された発注量を総量に反映するメソッドであり、Orderモデルに定義されています。
     end
