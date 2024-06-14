@@ -20,7 +20,7 @@ class OrdersController < ApplicationController
     #   item.with_lock do
     #   end
     #binding.irb
-    @order.with_lock do
+    #@order.with_lock do 
     @order.save!
     @order.update_total_quantity
     # update_total_quantityメソッドは、注文された発注量を総量に反映するメソッドであり、Orderモデルに定義されています。
