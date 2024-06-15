@@ -50,6 +50,7 @@ jobs:
           RAILS_ENV: "test"
           DATABASE_URL: "postgres://postgres@localhost:5432/rails_transaction_task_test"
         run: |
+          bundle exec rails db:reset
           bundle exec rspec
         continue-on-error: true
       - uses: JasonEtco/create-an-issue@v2
