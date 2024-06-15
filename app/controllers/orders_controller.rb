@@ -10,22 +10,11 @@ class OrdersController < ApplicationController
   end
 
   def create
-    ActiveRecord::Base.transaction do
-    #Itemの中で注文されたItemIDの商品をロックしたい
-    #注文されたItemをすべて持ってきて数量が0ではないものだけをロックしたい
-      @order = current_user.orders.lock.build(order_params)
-    #  selected_items = @order.ordered_lists.filter_map {|v| v.item_id if v.quantity > 0}
-    #  selected_items.each do |id|
-    #   item = Item.find(id)
-    #   item.with_lock do
-    #   end
-    #binding.irb
-    #@order.with_lock do 
-      @order.save!
-      @order.update_total_quantity
+    @order = current_user.orders.build(order_params)
+    @order.save
+    @order.update_total_quantity
     # update_total_quantityメソッドは、注文された発注量を総量に反映するメソッドであり、Orderモデルに定義されています。
-    end
-      redirect_to orders_path
+    redirect_to orders_path
   end
 
   private
