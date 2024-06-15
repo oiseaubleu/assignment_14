@@ -13,16 +13,17 @@ class OrdersController < ApplicationController
     ActiveRecord::Base.transaction do
     #Itemの中で注文されたItemIDの商品をロックしたい
     #注文されたItemをすべて持ってきて数量が0ではないものだけをロックしたい
-    @order = current_user.orders.build(order_params)
+      @order = current_user.orders.build(order_params)
       selected_items = @order.ordered_lists.filter_map {|v| v.item_id if v.quantity > 0}
       selected_items.each do |id|
         item = Item.find(id)
         item.with_lock do
-        unless @order.save #
-          raise ActiveRecord::Rollback # 
-        end
-        @order.update_total_quantity   # 
-      
+          unless @order.save #
+            raise ActiveRecord::Rollback # 
+          end
+          @order.update_total_quantity   # 
+        end  
+      end
     #binding.irb
     #@order.with_lock do 
 
