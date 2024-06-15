@@ -2,13 +2,14 @@ name: Ruby
 
 on:
   push:
-
+  
 permissions:
   contents: read
-  issues: write
+  issues: write 
 
 jobs:
   build:
+
     runs-on: ubuntu-latest
 
     services:
@@ -28,12 +29,12 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@v2
         with:
-          node-version: "18"
+          node-version: '18'
       - name: Install Yarn
         run: yarn --frozen-lockfile
       - name: Create Evaluation File
         run: |
-          git clone https://github.com/oiseaubleu/cdp_web_rails_transaction_task_evaluation_code.git spec
+          git clone https://github.com/diveintocode-corp/cdp_web_rails_transaction_task_evaluation_code.git spec
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
       - name: Create Feedback
